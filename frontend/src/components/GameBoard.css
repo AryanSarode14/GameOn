@@ -1,0 +1,44 @@
+.game-board h1 {
+  margin-bottom: 0.25rem;
+}
+
+.game-board-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+
+.game-board-links a {
+  padding: 0.5rem 0.25rem;
+}
+
+.game-board-links .game-board-post {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-text);
+  text-decoration: none;
+}
+
+.game-board .alert {
+  margin-bottom: 1rem;
+}
+
+.game-board .alert ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.game-board-list {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .game-board-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

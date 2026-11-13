@@ -1,0 +1,35 @@
+.game-filters {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.game-filters-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.game-filters button {
+  justify-self: start;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .game-filters {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: end;
+  }
+}
+
+@media (min-width: 900px) {
+  .game-filters {
+    grid-template-columns: repeat(4, 1fr) auto;
+  }
+}

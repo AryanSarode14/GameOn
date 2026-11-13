@@ -1,0 +1,51 @@
+.game-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  height: 100%;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.game-card h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.game-card p {
+  margin: 0;
+}
+
+.game-card-place,
+.game-card-host {
+  color: var(--muted);
+}
+
+.game-card-notes {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.game-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.game-card-actions a {
+  padding: 0.5rem 0.25rem;
+}
+
+.game-card-actions button {
+  background: transparent;
+  border: 1px solid var(--error-text);
+  color: var(--error-text);
+}
+
+.game-card .alert {
+  margin-top: 0.5rem;
+}
