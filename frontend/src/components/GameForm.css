@@ -1,0 +1,60 @@
+.game-form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.game-form-card fieldset {
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 1rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.game-form-card legend {
+  padding: 0 0.25rem;
+}
+
+.game-form-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+.game-form-radio input {
+  width: auto;
+  margin: 0;
+}
+
+.game-form-card select:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.game-form-card textarea {
+  resize: vertical;
+}
+
+.game-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.game-form-card .alert ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .game-form-card {
+    max-width: 40rem;
+    padding: 1.5rem 2rem;
+  }
+}
