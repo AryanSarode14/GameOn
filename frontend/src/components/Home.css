@@ -1,0 +1,30 @@
+.home-lead {
+  font-size: 1.125rem;
+  color: var(--muted);
+}
+
+.home-pages {
+  display: grid;
+  gap: 1rem;
+}
+
+.home-card {
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.home-card h3 {
+  margin: 0 0 0.25rem;
+}
+
+.home-card p {
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .home-pages {
+    grid-template-columns: 1fr 1fr;
+  }
+}
