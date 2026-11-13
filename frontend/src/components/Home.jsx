@@ -30,7 +30,7 @@ function Home() {
       <h2>Try the demo</h2>
       <p>
         <Link to="/login">Log in</Link> with username <strong>demo1</strong> and password{" "}
-        <strong>(password to be added)</strong>.
+        <strong>gameon123</strong>.
       </p>
     </div>
   );
