@@ -3,6 +3,7 @@ import path from "node:path";
 import express from "express";
 import session from "express-session";
 import passport from "passport";
+import "./auth/passport.js";
 import { connectDb } from "./db/connection.js";
 import authRouter from "./routes/auth.js";
 import gamesRouter from "./routes/games.js";
