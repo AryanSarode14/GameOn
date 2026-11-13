@@ -49,3 +49,38 @@ export const deleteGame = async (id) => {
   if (!_id) return false;
   return (await (await games()).deleteOne({ _id })).deletedCount === 1;
 };
+
+const tz = "America/New_York";
+
+export const popularSlots = async (sport) => {
+  const day = { $dayOfWeek: { date: "$date", timezone: tz } };
+  const hour = { $hour: { date: "$date", timezone: tz } };
+  const counts = { neighborhood: { $first: "$neighborhood" }, games: { $sum: 1 } };
+  const [r] = await (await games())
+    .aggregate([
+      { $match: sport ? { sport } : {} },
+      {
+        $facet: {
+          slots: [
+            { $group: { _id: { court: "$court", day, hour }, ...counts } },
+            { $sort: { games: -1, "_id.court": 1, "_id.day": 1, "_id.hour": 1 } },
+            { $limit: 10 },
+            { $project: { _id: 0, court: "$_id.court", neighborhood: 1, day: "$_id.day", hour: "$_id.hour", games: 1 } },
+          ],
+          courts: [
+            { $group: { _id: "$court", ...counts, spots: { $sum: "$spotsNeeded" } } },
+            { $sort: { games: -1, _id: 1 } },
+            { $limit: 10 },
+            { $project: { _id: 0, court: "$_id", neighborhood: 1, games: 1, spots: 1 } },
+          ],
+          byHour: [
+            { $group: { _id: hour, games: { $sum: 1 } } },
+            { $sort: { _id: 1 } },
+            { $project: { _id: 0, hour: "$_id", games: 1 } },
+          ],
+        },
+      },
+    ])
+    .toArray();
+  return r;
+};

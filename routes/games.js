@@ -1,7 +1,7 @@
 import express from "express";
 import requireLogin from "../middleware/requireLogin.js";
 import { SPORTS, SKILLS, COURTS, NEIGHBORHOODS } from "../db/gameOptions.js";
-import { listGames, getGame, createGame, updateGame, deleteGame } from "../db/gamesDB.js";
+import { listGames, getGame, createGame, updateGame, deleteGame, popularSlots } from "../db/gamesDB.js";
 
 const router = express.Router();
 const isStr = (v) => typeof v === "string";
@@ -24,6 +24,8 @@ const bostonDay = (v) => {
 };
 const courtOf = (name) => COURTS.find((c) => c.court === name);
 const notFound = (res) => res.status(404).json({ error: "Not found" });
+const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const hourLabel = (h) => `${h % 12 || 12} ${h < 12 ? "am" : "pm"}`;
 
 const rules = {
   sport: [(v) => SPORTS.includes(v), `Sport must be one of: ${SPORTS.join(", ")}`],
@@ -76,6 +78,23 @@ const requireHost = async (req, res, next) => {
 };
 
 router.get("/options", (req, res) => res.json({ sports: SPORTS, skills: SKILLS, courts: COURTS }));
+
+router.get("/insights", async (req, res) => {
+  const { sport } = req.query;
+  if (sport && !SPORTS.includes(sport)) return res.status(400).json({ errors: [rules.sport[1]] });
+  const { slots, courts, byHour } = await popularSlots(sport);
+  res.json({
+    slots: slots.map(({ court, neighborhood, day, hour, games }) => ({
+      court,
+      neighborhood,
+      day: DAYS[day - 1],
+      hour: hourLabel(hour),
+      games,
+    })),
+    courts: courts.map(({ court, neighborhood, games, spots }) => ({ court, neighborhood, games, spots })),
+    byHour: byHour.map(({ hour, games }) => ({ hour: hourLabel(hour), games })),
+  });
+});
 
 router.get("/", async (req, res) => {
   const { filters, page, errors } = checkQuery(req.query);
