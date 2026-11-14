@@ -13,7 +13,11 @@ router.post("/register", async (req, res, next) => {
   const errors = [];
   if (!isStr(username) || !/^[A-Za-z0-9_]{3,20}$/.test(username))
     errors.push("Username must be 3 to 20 letters, numbers or underscores");
-  if (!isStr(password) || password.length < 6 || Buffer.byteLength(password) > 72)
+  if (
+    !isStr(password) ||
+    password.length < 6 ||
+    Buffer.byteLength(password) > 72
+  )
     errors.push("Password must be 6 to 72 characters");
   if (errors.length) return res.status(400).json({ errors });
   const name = username.toLowerCase();
@@ -36,7 +40,8 @@ router.post("/login", (req, res, next) => {
   if (errors.length) return res.status(400).json({ errors });
   passport.authenticate("local", (err, u) => {
     if (err) return next(err);
-    if (!u) return res.status(401).json({ error: "Wrong username or password" });
+    if (!u)
+      return res.status(401).json({ error: "Wrong username or password" });
     req.login(u, (e) => (e ? next(e) : res.json(pub(u))));
   })(req, res, next);
 });

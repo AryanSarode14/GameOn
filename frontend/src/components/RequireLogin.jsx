@@ -7,7 +7,12 @@ function RequireLogin({ children }) {
   const { user, loading } = useUser();
   const location = useLocation();
 
-  if (loading) return <p className="require-login" role="status">Loading…</p>;
+  if (loading)
+    return (
+      <p className="require-login" role="status">
+        Loading…
+      </p>
+    );
   if (!user) return <Navigate to="/login" replace state={{ from: location }} />;
   return children;
 }

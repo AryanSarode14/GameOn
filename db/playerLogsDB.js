@@ -18,10 +18,16 @@ export const listLogs = async (userId, { sport, result, from, to }, page) => {
   const q = { userId };
   if (sport) q.sport = sport;
   if (result) q.result = result;
-  if (from || to) q.date = { ...(from && { $gte: from }), ...(to && { $lte: to }) };
+  if (from || to)
+    q.date = { ...(from && { $gte: from }), ...(to && { $lte: to }) };
   const c = await logs();
   const [items, total] = await Promise.all([
-    c.find(q).sort({ date: -1, _id: -1 }).skip((page - 1) * per).limit(per).toArray(),
+    c
+      .find(q)
+      .sort({ date: -1, _id: -1 })
+      .skip((page - 1) * per)
+      .limit(per)
+      .toArray(),
     c.countDocuments(q),
   ]);
   return { items, total, page, totalPages: Math.ceil(total / per) };
@@ -41,7 +47,11 @@ export const createLog = async (userId, doc) => {
 export const updateLog = async (userId, id, fields) => {
   const _id = oid(id);
   if (!_id) return null;
-  return (await logs()).findOneAndUpdate({ _id, userId }, { $set: fields }, { returnDocument: "after" });
+  return (await logs()).findOneAndUpdate(
+    { _id, userId },
+    { $set: fields },
+    { returnDocument: "after" },
+  );
 };
 
 export const deleteLog = async (userId, id) => {

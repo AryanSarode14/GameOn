@@ -50,7 +50,11 @@ const time = (d) => {
 };
 
 const today = new Date();
-const days = Array.from({ length: DAYS }, (_, i) => new Date(today.getFullYear(), today.getMonth(), today.getDate() + i + 1));
+const days = Array.from(
+  { length: DAYS },
+  (_, i) =>
+    new Date(today.getFullYear(), today.getMonth(), today.getDate() + i + 1),
+);
 const dayPairs = days.map((d) => [d, isWeekend(d) ? 1.5 : 1]);
 const courtPairs = COURTS.map((c) => [c, WEIGHTS[c.court] ?? 5]);
 
@@ -71,8 +75,18 @@ const game = (host, now) => {
     court: c.court,
     neighborhood: c.neighborhood,
     date: new Date(d.getFullYear(), d.getMonth(), d.getDate(), h, m),
-    skillLevel: weighted([[SKILLS[0], 25], [SKILLS[1], 50], [SKILLS[2], 25]]),
-    spotsNeeded: int(...weighted([[[2, 5], 75], [[6, 10], 20], [[1, 1], 5]])),
+    skillLevel: weighted([
+      [SKILLS[0], 25],
+      [SKILLS[1], 50],
+      [SKILLS[2], 25],
+    ]),
+    spotsNeeded: int(
+      ...weighted([
+        [[2, 5], 75],
+        [[6, 10], 20],
+        [[1, 1], 5],
+      ]),
+    ),
     notes: Math.random() < 0.4 ? "" : pick(NOTES),
     hostId: host._id,
     hostName: host.username,
@@ -81,7 +95,11 @@ const game = (host, now) => {
 };
 
 const seed = async (db) => {
-  const users = await db.collection("users").find({ username: /^demo\d+$/ }).project({ username: 1 }).toArray();
+  const users = await db
+    .collection("users")
+    .find({ username: /^demo\d+$/ })
+    .project({ username: 1 })
+    .toArray();
   if (!users.length) {
     console.error("Run seedUsers first");
     process.exitCode = 1;
@@ -91,7 +109,10 @@ const seed = async (db) => {
   const others = users.filter((u) => u !== demo1);
   const now = new Date();
   const docs = Array.from({ length: COUNT }, (_, i) =>
-    game(demo1 && i < DEMO1_GAMES ? demo1 : pick(others.length ? others : users), now),
+    game(
+      demo1 && i < DEMO1_GAMES ? demo1 : pick(others.length ? others : users),
+      now,
+    ),
   );
   const games = db.collection("games");
   await games.deleteMany({});

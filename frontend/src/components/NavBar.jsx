@@ -31,10 +31,22 @@ function NavBar() {
           GameOn
         </Link>
         <ul className="navbar-links">
-          <li><NavLink to="/games" end>Game Board</NavLink></li>
-          <li><NavLink to="/games/insights">Popular Times</NavLink></li>
-          <li><NavLink to="/log" end>Player Log</NavLink></li>
-          <li><NavLink to="/log/stats">My Stats</NavLink></li>
+          <li>
+            <NavLink to="/games" end>
+              Game Board
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/games/insights">Popular Times</NavLink>
+          </li>
+          <li>
+            <NavLink to="/log" end>
+              Player Log
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/log/stats">My Stats</NavLink>
+          </li>
         </ul>
       </nav>
       {!loading && (
@@ -45,7 +57,11 @@ function NavBar() {
               <button type="button" onClick={handleLogout} disabled={busy}>
                 Log out
               </button>
-              {error && <p className="alert" role="alert">{error}</p>}
+              {error && (
+                <p className="alert" role="alert">
+                  {error}
+                </p>
+              )}
             </>
           ) : (
             <NavLink to="/login">Log in</NavLink>

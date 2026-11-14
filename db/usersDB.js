@@ -12,13 +12,20 @@ const users = async () => {
   return c;
 };
 
-export const findUserByUsername = async (username) => (await users()).findOne({ username });
+export const findUserByUsername = async (username) =>
+  (await users()).findOne({ username });
 
 export const findUserById = async (id) =>
-  ObjectId.isValid(id) ? (await users()).findOne({ _id: new ObjectId(id) }) : null;
+  ObjectId.isValid(id)
+    ? (await users()).findOne({ _id: new ObjectId(id) })
+    : null;
 
 export const createUser = async (username, passwordHash) => {
   const c = await users();
-  const { insertedId } = await c.insertOne({ username, passwordHash, createdAt: new Date() });
+  const { insertedId } = await c.insertOne({
+    username,
+    passwordHash,
+    createdAt: new Date(),
+  });
   return { _id: insertedId, username };
 };

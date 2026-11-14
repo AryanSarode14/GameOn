@@ -20,11 +20,14 @@ function LoginPage() {
   }, [errors.register]);
 
   if (loading) return <p role="status">Loading…</p>;
-  if (user) return <Navigate to={location.state?.from?.pathname ?? "/games"} replace />;
+  if (user)
+    return <Navigate to={location.state?.from?.pathname ?? "/games"} replace />;
 
   async function submit(e, form) {
     e.preventDefault();
-    const body = JSON.stringify(Object.fromEntries(new FormData(e.currentTarget)));
+    const body = JSON.stringify(
+      Object.fromEntries(new FormData(e.currentTarget)),
+    );
     setBusy(true);
     setErrors((prev) => ({ ...prev, [form]: [] }));
     try {
@@ -35,10 +38,15 @@ function LoginPage() {
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok) return setUser(data);
-      const msgs = data.errors ?? [data.error ?? "Something went wrong. Try again."];
+      const msgs = data.errors ?? [
+        data.error ?? "Something went wrong. Try again.",
+      ];
       setErrors((prev) => ({ ...prev, [form]: msgs }));
     } catch {
-      setErrors((prev) => ({ ...prev, [form]: ["Couldn't reach the server. Try again."] }));
+      setErrors((prev) => ({
+        ...prev,
+        [form]: ["Couldn't reach the server. Try again."],
+      }));
     } finally {
       setBusy(false);
     }
@@ -52,13 +60,35 @@ function LoginPage() {
           <h2 id="login-heading">Log in</h2>
           <form onSubmit={(e) => submit(e, "login")}>
             <label htmlFor="login-username">Username</label>
-            <input id="login-username" name="username" autoComplete="username" required />
+            <input
+              id="login-username"
+              name="username"
+              autoComplete="username"
+              required
+            />
             <label htmlFor="login-password">Password</label>
-            <input id="login-password" name="password" type="password" autoComplete="current-password" required />
-            <button type="submit" disabled={busy}>Log in</button>
+            <input
+              id="login-password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              required
+            />
+            <button type="submit" disabled={busy}>
+              Log in
+            </button>
             {errors.login.length > 0 && (
-              <div className="alert" role="alert" tabIndex={-1} ref={loginAlert}>
-                <ul>{errors.login.map((m) => <li key={m}>{m}</li>)}</ul>
+              <div
+                className="alert"
+                role="alert"
+                tabIndex={-1}
+                ref={loginAlert}
+              >
+                <ul>
+                  {errors.login.map((m) => (
+                    <li key={m}>{m}</li>
+                  ))}
+                </ul>
               </div>
             )}
           </form>
@@ -68,13 +98,35 @@ function LoginPage() {
           <h2 id="register-heading">Create account</h2>
           <form onSubmit={(e) => submit(e, "register")}>
             <label htmlFor="register-username">Username</label>
-            <input id="register-username" name="username" autoComplete="username" required />
+            <input
+              id="register-username"
+              name="username"
+              autoComplete="username"
+              required
+            />
             <label htmlFor="register-password">Password</label>
-            <input id="register-password" name="password" type="password" autoComplete="new-password" required />
-            <button type="submit" disabled={busy}>Create account</button>
+            <input
+              id="register-password"
+              name="password"
+              type="password"
+              autoComplete="new-password"
+              required
+            />
+            <button type="submit" disabled={busy}>
+              Create account
+            </button>
             {errors.register.length > 0 && (
-              <div className="alert" role="alert" tabIndex={-1} ref={registerAlert}>
-                <ul>{errors.register.map((m) => <li key={m}>{m}</li>)}</ul>
+              <div
+                className="alert"
+                role="alert"
+                tabIndex={-1}
+                ref={registerAlert}
+              >
+                <ul>
+                  {errors.register.map((m) => (
+                    <li key={m}>{m}</li>
+                  ))}
+                </ul>
               </div>
             )}
           </form>

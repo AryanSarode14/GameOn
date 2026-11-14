@@ -7,7 +7,14 @@ const pad = (n) => String(n).padStart(2, "0");
 const toLocalInput = (d) =>
   `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 const cap = (s) => s[0].toUpperCase() + s.slice(1);
-const empty = { sport: "", court: "", date: "", skillLevel: "", spotsNeeded: "", notes: "" };
+const empty = {
+  sport: "",
+  court: "",
+  date: "",
+  skillLevel: "",
+  spotsNeeded: "",
+  notes: "",
+};
 const toForm = ({ sport, court, date, skillLevel, spotsNeeded, notes }) => ({
   sport,
   court,
@@ -48,7 +55,10 @@ function GameForm() {
         if (ignore) return;
         if (gameRes?.status === 404) return done("notFound");
         if (!optRes.ok || (gameRes && !gameRes.ok)) return done("failed");
-        const [opts, game] = await Promise.all([optRes.json(), gameRes?.json()]);
+        const [opts, game] = await Promise.all([
+          optRes.json(),
+          gameRes?.json(),
+        ]);
         if (ignore) return;
         if (game && game.hostId !== user._id) return done("notHost");
         setOptions(opts);
@@ -65,10 +75,26 @@ function GameForm() {
     };
   }, [id, user._id]);
 
-  if (status === "loading" || loadedFor !== (id ?? "new")) return <p role="status">Loading…</p>;
-  if (status === "notFound") return <p>Game not found. <Link to="/games">Back to games</Link></p>;
-  if (status === "notHost") return <p>Only the host can edit this game. <Link to="/games">Back to games</Link></p>;
-  if (status === "failed") return <p className="alert" role="alert">Couldn&apos;t load this page. Try again.</p>;
+  if (status === "loading" || loadedFor !== (id ?? "new"))
+    return <p role="status">Loading…</p>;
+  if (status === "notFound")
+    return (
+      <p>
+        Game not found. <Link to="/games">Back to games</Link>
+      </p>
+    );
+  if (status === "notHost")
+    return (
+      <p>
+        Only the host can edit this game. <Link to="/games">Back to games</Link>
+      </p>
+    );
+  if (status === "failed")
+    return (
+      <p className="alert" role="alert">
+        Couldn&apos;t load this page. Try again.
+      </p>
+    );
 
   const courts = options.courts.filter((c) => c.sports.includes(form.sport));
   const hoods = [...new Set(courts.map((c) => c.neighborhood))];
@@ -79,7 +105,9 @@ function GameForm() {
     const { name, value } = e.target;
     setForm((prev) => {
       const next = { ...prev, [name]: value };
-      const fits = options.courts.some((c) => c.court === prev.court && c.sports.includes(value));
+      const fits = options.courts.some(
+        (c) => c.court === prev.court && c.sports.includes(value),
+      );
       if (name === "sport" && !fits) next.court = "";
       return next;
     });
@@ -87,7 +115,11 @@ function GameForm() {
 
   async function submit(e) {
     e.preventDefault();
-    const body = { ...form, date: new Date(form.date).toISOString(), spotsNeeded: Number(form.spotsNeeded) };
+    const body = {
+      ...form,
+      date: new Date(form.date).toISOString(),
+      spotsNeeded: Number(form.spotsNeeded),
+    };
     setBusy(true);
     setErrors([]);
     try {
@@ -98,7 +130,9 @@ function GameForm() {
       });
       if (res.ok) return navigate("/games", { replace: true });
       const data = await res.json().catch(() => ({}));
-      setErrors(data.errors ?? [data.error ?? "Something went wrong. Try again."]);
+      setErrors(
+        data.errors ?? [data.error ?? "Something went wrong. Try again."],
+      );
     } catch {
       setErrors(["Couldn't reach the server. Try again."]);
     } finally {
@@ -111,51 +145,111 @@ function GameForm() {
       <h1>{id ? "Edit game" : "Post a game"}</h1>
       <form className="game-form-card" onSubmit={submit}>
         <label htmlFor="gf-sport">Sport</label>
-        <select id="gf-sport" name="sport" value={form.sport} onChange={change} required>
+        <select
+          id="gf-sport"
+          name="sport"
+          value={form.sport}
+          onChange={change}
+          required
+        >
           <option value="">Choose a sport</option>
-          {options.sports.map((s) => <option key={s} value={s}>{cap(s)}</option>)}
+          {options.sports.map((s) => (
+            <option key={s} value={s}>
+              {cap(s)}
+            </option>
+          ))}
         </select>
 
         <label htmlFor="gf-court">Court</label>
-        <select id="gf-court" name="court" value={form.court} onChange={change} disabled={!form.sport} required>
-          <option value="">{form.sport ? "Choose a court" : "Choose a sport first"}</option>
+        <select
+          id="gf-court"
+          name="court"
+          value={form.court}
+          onChange={change}
+          disabled={!form.sport}
+          required
+        >
+          <option value="">
+            {form.sport ? "Choose a court" : "Choose a sport first"}
+          </option>
           {hoods.map((n) => (
             <optgroup key={n} label={n}>
-              {courts.filter((c) => c.neighborhood === n).map((c) => (
-                <option key={c.court} value={c.court}>{c.court}</option>
-              ))}
+              {courts
+                .filter((c) => c.neighborhood === n)
+                .map((c) => (
+                  <option key={c.court} value={c.court}>
+                    {c.court}
+                  </option>
+                ))}
             </optgroup>
           ))}
         </select>
 
         <label htmlFor="gf-date">Date and time</label>
-        <input id="gf-date" name="date" type="datetime-local" min={min} value={form.date} onChange={change} required />
+        <input
+          id="gf-date"
+          name="date"
+          type="datetime-local"
+          min={min}
+          value={form.date}
+          onChange={change}
+          required
+        />
 
         <fieldset>
           <legend>Skill level</legend>
           {options.skills.map((s) => (
             <div key={s} className="game-form-radio">
-              <input id={`gf-skill-${s}`} type="radio" name="skillLevel" value={s}
-                checked={form.skillLevel === s} onChange={change} required />
+              <input
+                id={`gf-skill-${s}`}
+                type="radio"
+                name="skillLevel"
+                value={s}
+                checked={form.skillLevel === s}
+                onChange={change}
+                required
+              />
               <label htmlFor={`gf-skill-${s}`}>{cap(s)}</label>
             </div>
           ))}
         </fieldset>
 
         <label htmlFor="gf-spots">Spots needed</label>
-        <input id="gf-spots" name="spotsNeeded" type="number" min="1" max="20" step="1"
-          value={form.spotsNeeded} onChange={change} required />
+        <input
+          id="gf-spots"
+          name="spotsNeeded"
+          type="number"
+          min="1"
+          max="20"
+          step="1"
+          value={form.spotsNeeded}
+          onChange={change}
+          required
+        />
 
         <label htmlFor="gf-notes">Notes (optional)</label>
-        <textarea id="gf-notes" name="notes" rows={4} maxLength={300} value={form.notes} onChange={change} />
+        <textarea
+          id="gf-notes"
+          name="notes"
+          rows={4}
+          maxLength={300}
+          value={form.notes}
+          onChange={change}
+        />
 
         <div className="game-form-actions">
-          <button type="submit" disabled={busy}>{submitLabel}</button>
+          <button type="submit" disabled={busy}>
+            {submitLabel}
+          </button>
           <Link to="/games">Cancel</Link>
         </div>
         {errors.length > 0 && (
           <div className="alert" role="alert" tabIndex={-1} ref={alertRef}>
-            <ul>{errors.map((m) => <li key={m}>{m}</li>)}</ul>
+            <ul>
+              {errors.map((m) => (
+                <li key={m}>{m}</li>
+              ))}
+            </ul>
           </div>
         )}
       </form>

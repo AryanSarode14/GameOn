@@ -12,13 +12,20 @@ const PLURAL = {
   Sat: "Saturdays",
 };
 const cap = (s) => s[0].toUpperCase() + s.slice(1);
-const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const cssVar = (name) =>
+  getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
 function GameInsights() {
   const [sports, setSports] = useState(null);
   const [optionsFailed, setOptionsFailed] = useState(false);
   const [sport, setSport] = useState("");
-  const [result, setResult] = useState({ key: null, slots: [], courts: [], byHour: [], errors: [] });
+  const [result, setResult] = useState({
+    key: null,
+    slots: [],
+    courts: [],
+    byHour: [],
+    errors: [],
+  });
   const canvasRef = useRef(null);
 
   const query = sport ? `?${new URLSearchParams({ sport })}` : "";
@@ -36,14 +43,26 @@ function GameInsights() {
 
   useEffect(() => {
     let ignore = false;
-    const fail = (errors) => setResult({ key: sport, slots: [], courts: [], byHour: [], errors });
+    const fail = (errors) =>
+      setResult({ key: sport, slots: [], courts: [], byHour: [], errors });
     async function load() {
       try {
         const res = await fetch(`/api/games/insights${query}`);
         const data = await res.json().catch(() => ({}));
         if (ignore) return;
-        if (!res.ok) return fail(data.errors ?? [data.error ?? "Couldn't load popular times. Try again."]);
-        setResult({ key: sport, slots: data.slots, courts: data.courts, byHour: data.byHour, errors: [] });
+        if (!res.ok)
+          return fail(
+            data.errors ?? [
+              data.error ?? "Couldn't load popular times. Try again.",
+            ],
+          );
+        setResult({
+          key: sport,
+          slots: data.slots,
+          courts: data.courts,
+          byHour: data.byHour,
+          errors: [],
+        });
       } catch {
         if (!ignore) fail(["Couldn't reach the server. Try again."]);
       }
@@ -65,14 +84,24 @@ function GameInsights() {
       type: "bar",
       data: {
         labels: byHour.map((h) => h.hour),
-        datasets: [{ label: "Games", data: byHour.map((h) => h.games), backgroundColor: cssVar("--accent") }],
+        datasets: [
+          {
+            label: "Games",
+            data: byHour.map((h) => h.games),
+            backgroundColor: cssVar("--accent"),
+          },
+        ],
       },
       options: {
         maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
           x: { ticks: { color: text }, grid: { color: grid } },
-          y: { beginAtZero: true, ticks: { color: text, precision: 0 }, grid: { color: grid } },
+          y: {
+            beginAtZero: true,
+            ticks: { color: text, precision: 0 },
+            grid: { color: grid },
+          },
         },
       },
     });
@@ -90,20 +119,41 @@ function GameInsights() {
       <h1>Popular Times</h1>
 
       {sports && (
-        <form className="game-insights-filter" role="search" aria-label="Choose a sport" onSubmit={(e) => e.preventDefault()}>
+        <form
+          className="game-insights-filter"
+          role="search"
+          aria-label="Choose a sport"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <label htmlFor="insights-sport">Sport</label>
-          <select id="insights-sport" value={sport} onChange={(e) => setSport(e.target.value)}>
+          <select
+            id="insights-sport"
+            value={sport}
+            onChange={(e) => setSport(e.target.value)}
+          >
             <option value="">All</option>
-            {sports.map((s) => <option key={s} value={s}>{cap(s)}</option>)}
+            {sports.map((s) => (
+              <option key={s} value={s}>
+                {cap(s)}
+              </option>
+            ))}
           </select>
         </form>
       )}
-      {optionsFailed && <p className="alert" role="alert">Couldn&apos;t load the sports list. Try again.</p>}
+      {optionsFailed && (
+        <p className="alert" role="alert">
+          Couldn&apos;t load the sports list. Try again.
+        </p>
+      )}
 
       {loading && <p role="status">Loading…</p>}
       {errors.length > 0 && (
         <div className="alert" role="alert">
-          <ul>{errors.map((m) => <li key={m}>{m}</li>)}</ul>
+          <ul>
+            {errors.map((m) => (
+              <li key={m}>{m}</li>
+            ))}
+          </ul>
         </div>
       )}
       {!loading && !errors.length && !slots.length && (
@@ -113,7 +163,8 @@ function GameInsights() {
       {top && (
         <div className="game-insights-content" aria-busy={loading}>
           <p className="game-insights-answer">
-            Busiest{sport && ` for ${sport}`}: {top.court} on {PLURAL[top.day]} at {top.hour}.
+            Busiest{sport && ` for ${sport}`}: {top.court} on {PLURAL[top.day]}{" "}
+            at {top.hour}.
           </p>
 
           <section className="game-insights-chart" aria-labelledby="gi-hours">
@@ -126,13 +177,20 @@ function GameInsights() {
           <div className="game-insights-tables">
             <section aria-labelledby="gi-courts">
               <h2 id="gi-courts">Most active courts</h2>
-              <div className="game-insights-scroll" role="region" aria-labelledby="gi-courts" tabIndex={0}>
+              <div
+                className="game-insights-scroll"
+                role="region"
+                aria-labelledby="gi-courts"
+                tabIndex={0}
+              >
                 <table aria-labelledby="gi-courts">
                   <thead>
                     <tr>
                       <th scope="col">Court</th>
                       <th scope="col">Neighborhood</th>
-                      <th scope="col" className="num">Games</th>
+                      <th scope="col" className="num">
+                        Games
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -150,14 +208,21 @@ function GameInsights() {
 
             <section aria-labelledby="gi-slots">
               <h2 id="gi-slots">Best time slots</h2>
-              <div className="game-insights-scroll" role="region" aria-labelledby="gi-slots" tabIndex={0}>
+              <div
+                className="game-insights-scroll"
+                role="region"
+                aria-labelledby="gi-slots"
+                tabIndex={0}
+              >
                 <table aria-labelledby="gi-slots">
                   <thead>
                     <tr>
                       <th scope="col">Day</th>
                       <th scope="col">Time</th>
                       <th scope="col">Court</th>
-                      <th scope="col" className="num">Games</th>
+                      <th scope="col" className="num">
+                        Games
+                      </th>
                     </tr>
                   </thead>
                   <tbody>

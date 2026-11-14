@@ -7,7 +7,8 @@ passport.use(
   new Strategy(async (username, password, done) => {
     try {
       const u = await findUserByUsername(username.toLowerCase());
-      if (!u || !(await bcrypt.compare(password, u.passwordHash))) return done(null, false);
+      if (!u || !(await bcrypt.compare(password, u.passwordHash)))
+        return done(null, false);
       done(null, u);
     } catch (e) {
       done(e);

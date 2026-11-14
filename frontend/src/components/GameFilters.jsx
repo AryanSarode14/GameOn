@@ -15,25 +15,50 @@ function GameFilters({ filters, options, onChange }) {
     ["neighborhood", "Neighborhood", hoods, (n) => n],
     ["skill", "Skill level", options.skills, cap],
   ];
-  const change = (e) => onChange({ ...filters, [e.target.name]: e.target.value });
-  const clear = () => onChange(Object.fromEntries(Object.keys(filters).map((k) => [k, ""])));
+  const change = (e) =>
+    onChange({ ...filters, [e.target.name]: e.target.value });
+  const clear = () =>
+    onChange(Object.fromEntries(Object.keys(filters).map((k) => [k, ""])));
 
   return (
-    <form className="game-filters" role="search" aria-label="Filter games" onSubmit={(e) => e.preventDefault()}>
+    <form
+      className="game-filters"
+      role="search"
+      aria-label="Filter games"
+      onSubmit={(e) => e.preventDefault()}
+    >
       {selects.map(([name, label, list, show]) => (
         <div key={name} className="game-filters-field">
           <label htmlFor={`filter-${name}`}>{label}</label>
-          <select id={`filter-${name}`} name={name} value={filters[name]} onChange={change}>
+          <select
+            id={`filter-${name}`}
+            name={name}
+            value={filters[name]}
+            onChange={change}
+          >
             <option value="">All</option>
-            {list.map((v) => <option key={v} value={v}>{show(v)}</option>)}
+            {list.map((v) => (
+              <option key={v} value={v}>
+                {show(v)}
+              </option>
+            ))}
           </select>
         </div>
       ))}
       <div className="game-filters-field">
         <label htmlFor="filter-from">From</label>
-        <input id="filter-from" name="from" type="date" min={today()} value={filters.from} onChange={change} />
+        <input
+          id="filter-from"
+          name="from"
+          type="date"
+          min={today()}
+          value={filters.from}
+          onChange={change}
+        />
       </div>
-      <button type="button" onClick={clear}>Clear</button>
+      <button type="button" onClick={clear}>
+        Clear
+      </button>
     </form>
   );
 }

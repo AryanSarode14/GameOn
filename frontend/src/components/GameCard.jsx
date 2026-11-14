@@ -16,7 +16,17 @@ const when = (d) =>
 function GameCard({ game, isHost, onDelete }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const { _id, sport, court, neighborhood, date, skillLevel, spotsNeeded, hostName, notes } = game;
+  const {
+    _id,
+    sport,
+    court,
+    neighborhood,
+    date,
+    skillLevel,
+    spotsNeeded,
+    hostName,
+    notes,
+  } = game;
   const title = `${cap(sport)} at ${court}`;
 
   async function remove() {
@@ -42,19 +52,31 @@ function GameCard({ game, isHost, onDelete }) {
         <time dateTime={date}>{when(date)}</time>
       </p>
       <p>
-        {cap(skillLevel)} · {spotsNeeded} {spotsNeeded === 1 ? "spot" : "spots"} open
+        {cap(skillLevel)} · {spotsNeeded} {spotsNeeded === 1 ? "spot" : "spots"}{" "}
+        open
       </p>
       <p className="game-card-host">Hosted by {hostName}</p>
       {notes && <p className="game-card-notes">{notes}</p>}
       {isHost && (
         <div className="game-card-actions">
-          <Link to={`/games/${_id}/edit`} aria-label={`Edit ${title}`}>Edit</Link>
-          <button type="button" onClick={remove} disabled={busy} aria-label={`Delete ${title}`}>
+          <Link to={`/games/${_id}/edit`} aria-label={`Edit ${title}`}>
+            Edit
+          </Link>
+          <button
+            type="button"
+            onClick={remove}
+            disabled={busy}
+            aria-label={`Delete ${title}`}
+          >
             {busy ? "Deleting…" : "Delete"}
           </button>
         </div>
       )}
-      {error && <p className="alert" role="alert">{error}</p>}
+      {error && (
+        <p className="alert" role="alert">
+          {error}
+        </p>
+      )}
     </article>
   );
 }

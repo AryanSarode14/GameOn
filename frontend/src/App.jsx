@@ -22,14 +22,63 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/games" element={<GameBoard />} />
-            <Route path="/games/new" element={<RequireLogin><GameForm /></RequireLogin>} />
-            <Route path="/games/:id/edit" element={<RequireLogin><GameForm /></RequireLogin>} />
+            <Route
+              path="/games/new"
+              element={
+                <RequireLogin>
+                  <GameForm />
+                </RequireLogin>
+              }
+            />
+            <Route
+              path="/games/:id/edit"
+              element={
+                <RequireLogin>
+                  <GameForm />
+                </RequireLogin>
+              }
+            />
             <Route path="/games/insights" element={<GameInsights />} />
-            <Route path="/log" element={<RequireLogin><PlayerLog /></RequireLogin>} />
-            <Route path="/log/new" element={<RequireLogin><LogForm /></RequireLogin>} />
-            <Route path="/log/:id/edit" element={<RequireLogin><LogForm /></RequireLogin>} />
-            <Route path="/log/stats" element={<RequireLogin><PlayerStats /></RequireLogin>} />
-            <Route path="*" element={<p>Page not found. <Link to="/">Go to Home</Link></p>} />
+            <Route
+              path="/log"
+              element={
+                <RequireLogin>
+                  <PlayerLog />
+                </RequireLogin>
+              }
+            />
+            <Route
+              path="/log/new"
+              element={
+                <RequireLogin>
+                  <LogForm />
+                </RequireLogin>
+              }
+            />
+            <Route
+              path="/log/:id/edit"
+              element={
+                <RequireLogin>
+                  <LogForm />
+                </RequireLogin>
+              }
+            />
+            <Route
+              path="/log/stats"
+              element={
+                <RequireLogin>
+                  <PlayerStats />
+                </RequireLogin>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <p>
+                  Page not found. <Link to="/">Go to Home</Link>
+                </p>
+              }
+            />
           </Routes>
         </main>
       </BrowserRouter>
