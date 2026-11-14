@@ -1,0 +1,44 @@
+.player-log h1 {
+  margin-bottom: 0.25rem;
+}
+
+.player-log .player-log-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+}
+
+.player-log .player-log-links a {
+  padding: 0.5rem 0.25rem;
+}
+
+.player-log .player-log-add {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-text);
+  text-decoration: none;
+}
+
+.player-log > .alert {
+  margin-bottom: 1rem;
+}
+
+.player-log > .alert ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.player-log .player-log-list {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .player-log .player-log-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

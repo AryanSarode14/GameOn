@@ -1,0 +1,66 @@
+.log-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  height: 100%;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.log-entry h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.log-entry p {
+  margin: 0;
+}
+
+.log-entry .log-entry-when {
+  color: var(--muted);
+}
+
+.log-entry .log-entry-result {
+  font-weight: 600;
+}
+
+.log-entry .log-entry-win {
+  color: var(--accent);
+}
+
+.log-entry .log-entry-loss {
+  color: var(--error-text);
+}
+
+.log-entry .log-entry-draw {
+  color: var(--muted);
+}
+
+.log-entry .log-entry-notes {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.log-entry .log-entry-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.log-entry .log-entry-actions a {
+  padding: 0.5rem 0.25rem;
+}
+
+.log-entry .log-entry-actions button {
+  background: transparent;
+  border: 1px solid var(--error-text);
+  color: var(--error-text);
+}
+
+.log-entry .alert {
+  margin-top: 0.5rem;
+}

@@ -1,0 +1,35 @@
+.log-filters {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.log-filters .log-filters-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.log-filters button {
+  justify-self: start;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .log-filters {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: end;
+  }
+}
+
+@media (min-width: 900px) {
+  .log-filters {
+    grid-template-columns: repeat(4, 1fr) auto;
+  }
+}
