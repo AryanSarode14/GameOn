@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "seed": "node scripts/seedUsers.js && node scripts/seedGames.js && node scripts/seedPlayerLogs.js",
-    "build": "cd frontend && npm install && npm run build"
+    "build": "cd frontend && npm install --include=dev && npm run build"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/AryanSarode14/GameOn#readme",
   "type": "module",
   "engines": {
-    "node": ">=20.11"
+    "node": "22.x"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
