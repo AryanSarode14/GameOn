@@ -59,3 +59,57 @@ export const deleteLog = async (userId, id) => {
   if (!_id) return false;
   return (await (await logs()).deleteOne({ _id, userId })).deletedCount === 1;
 };
+
+const tz = "America/New_York";
+const count = (r) => ({ $sum: { $cond: [{ $eq: ["$result", r] }, 1, 0] } });
+
+export const stats = async (userId) => {
+  const [r] = await (
+    await logs()
+  )
+    .aggregate([
+      { $match: { userId } },
+      {
+        $facet: {
+          bySport: [
+            { $group: { _id: "$sport", games: { $sum: 1 } } },
+            { $sort: { games: -1, _id: 1 } },
+            { $project: { _id: 0, sport: "$_id", games: 1 } },
+          ],
+          totals: [
+            {
+              $group: {
+                _id: null,
+                games: { $sum: 1 },
+                wins: count("win"),
+                losses: count("loss"),
+                draws: count("draw"),
+                minutes: { $sum: "$durationMin" },
+                avgRating: { $avg: "$rating" },
+              },
+            },
+          ],
+          byMonth: [
+            {
+              $group: {
+                _id: {
+                  $dateToString: {
+                    format: "%Y-%m",
+                    date: "$date",
+                    timezone: tz,
+                  },
+                },
+                games: { $sum: 1 },
+                wins: count("win"),
+                minutes: { $sum: "$durationMin" },
+                avgRating: { $avg: "$rating" },
+              },
+            },
+            { $sort: { _id: 1 } },
+          ],
+        },
+      },
+    ])
+    .toArray();
+  return r;
+};

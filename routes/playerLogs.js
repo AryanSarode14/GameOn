@@ -6,6 +6,7 @@ import {
   createLog,
   updateLog,
   deleteLog,
+  stats,
 } from "../db/playerLogsDB.js";
 
 const router = express.Router();
@@ -18,6 +19,9 @@ const iso = (v) =>
 const len = (v, lo, hi) =>
   isStr(v) && v.trim().length >= lo && v.trim().length <= hi;
 const notFound = (res) => res.status(404).json({ error: "Not found" });
+const r1 = (x) => Math.round(x * 10) / 10;
+const pct = (w, g) => (g ? Math.round((w / g) * 100) : 0);
+const zero = { games: 0, wins: 0, losses: 0, draws: 0, minutes: 0 };
 
 const rules = {
   sport: [
@@ -89,6 +93,30 @@ router.get("/", async (req, res) => {
   const { filters, page, errors } = checkQuery(req.query);
   if (errors.length) return res.status(400).json({ errors });
   res.json(await listLogs(req.user._id, filters, page));
+});
+
+router.get("/stats", async (req, res) => {
+  const { bySport, totals, byMonth } = await stats(req.user._id);
+  const t = totals[0] ?? zero;
+  res.json({
+    bySport,
+    totals: {
+      games: t.games,
+      wins: t.wins,
+      losses: t.losses,
+      draws: t.draws,
+      hours: r1(t.minutes / 60),
+      avgRating: r1(t.avgRating ?? 0),
+      winRate: pct(t.wins, t.games),
+    },
+    byMonth: byMonth.map((m) => ({
+      month: m._id,
+      games: m.games,
+      hours: r1(m.minutes / 60),
+      avgRating: r1(m.avgRating ?? 0),
+      winRate: pct(m.wins, m.games),
+    })),
+  });
 });
 
 router.get("/:id", async (req, res) => {
