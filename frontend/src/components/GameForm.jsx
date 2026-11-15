@@ -2,6 +2,7 @@ import "./GameForm.css";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../context/UserContext.jsx";
+import useBodySport from "../useBodySport.js";
 
 const pad = (n) => String(n).padStart(2, "0");
 const toLocalInput = (d) =>
@@ -35,6 +36,9 @@ function GameForm() {
   const [busy, setBusy] = useState(false);
   const [errors, setErrors] = useState([]);
   const alertRef = useRef(null);
+  useBodySport(
+    status === "ready" && loadedFor === (id ?? "new") ? form.sport : "",
+  );
 
   useEffect(() => {
     if (errors.length) alertRef.current.focus();

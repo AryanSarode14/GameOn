@@ -5,6 +5,7 @@ import { useUser } from "../context/UserContext.jsx";
 import GameFilters from "./GameFilters.jsx";
 import GameCard from "./GameCard.jsx";
 import Pagination from "./Pagination.jsx";
+import useBodySport from "../useBodySport.js";
 
 const noFilters = { sport: "", neighborhood: "", skill: "", from: "" };
 
@@ -26,6 +27,7 @@ function GameBoard() {
     Object.entries({ ...filters, page: String(page) }).filter(([, v]) => v),
   ).toString();
   const reqKey = `${query}#${reloads}`;
+  useBodySport(filters.sport);
 
   useEffect(() => {
     let ignore = false;

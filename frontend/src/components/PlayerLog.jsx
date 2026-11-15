@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import LogFilters from "./LogFilters.jsx";
 import LogEntry from "./LogEntry.jsx";
 import Pagination from "./Pagination.jsx";
+import useBodySport from "../useBodySport.js";
 
 const noFilters = { sport: "", result: "", from: "", to: "" };
 const dayStart = (d) => new Date(`${d}T00:00`).toISOString();
@@ -31,6 +32,7 @@ function PlayerLog() {
     Object.entries(params).filter(([, v]) => v),
   ).toString();
   const reqKey = `${query}#${reloads}`;
+  useBodySport(filters.sport);
 
   useEffect(() => {
     let ignore = false;

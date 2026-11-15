@@ -14,6 +14,9 @@
   --radius-pill: 999px;
   --shadow: 0 1px 2px rgba(30, 27, 24, 0.06), 0 4px 14px rgba(30, 27, 24, 0.08);
   --font-display: "Oswald", "Arial Narrow", sans-serif;
+  --court: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 940 500' fill='none' stroke='black' stroke-width='5'%3E%3Crect x='5' y='5' width='930' height='490'/%3E%3Cpath d='M470 5V495'/%3E%3Ccircle cx='470' cy='250' r='60'/%3E%3Crect x='5' y='170' width='190' height='160'/%3E%3Crect x='745' y='170' width='190' height='160'/%3E%3Ccircle cx='195' cy='250' r='60'/%3E%3Ccircle cx='745' cy='250' r='60'/%3E%3Cpath d='M5 30H147A237.5 237.5 0 0 1 147 470H5M935 30H793A237.5 237.5 0 0 0 793 470H935M45 220V280M895 220V280'/%3E%3Ccircle cx='57.5' cy='250' r='7.5'/%3E%3Ccircle cx='882.5' cy='250' r='7.5'/%3E%3C/svg%3E");
+  --court-line: var(--accent);
+  --court-opacity: 0.12;
   color-scheme: light dark;
 }
 
@@ -43,8 +46,32 @@ body {
   margin: 0;
   font-family: system-ui, sans-serif;
   line-height: 1.5;
-  background: var(--bg);
+  background: var(--court-tint, var(--bg));
   color: var(--text);
+  transition: background-color 0.3s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 1.5rem;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--court-line);
+  opacity: var(--court-opacity);
+  -webkit-mask: var(--court) center / contain no-repeat;
+  mask: var(--court) center / contain no-repeat;
+}
+
+@media (orientation: portrait) {
+  body::before {
+    inset: auto;
+    top: 50%;
+    left: 50%;
+    width: calc(100vh - 3rem);
+    height: calc(100vw - 3rem);
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
 }
 
 main {
@@ -122,5 +149,65 @@ textarea {
 @media (min-width: 640px) {
   main {
     padding: 2.5rem;
+  }
+}
+
+body[data-sport="basketball"] {
+  --court-tint: #f7e6d3;
+}
+
+body[data-sport="soccer"] {
+  --court: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1060 690' fill='none' stroke='black' stroke-width='5'%3E%3Crect x='5' y='5' width='1050' height='680'/%3E%3Cpath d='M530 5V685'/%3E%3Ccircle cx='530' cy='345' r='91.5'/%3E%3Crect x='5' y='143.5' width='165' height='403'/%3E%3Crect x='890' y='143.5' width='165' height='403'/%3E%3Crect x='5' y='253.5' width='55' height='183'/%3E%3Crect x='1000' y='253.5' width='55' height='183'/%3E%3Cpath d='M170 271.9A91.5 91.5 0 0 1 170 418.1M890 271.9A91.5 91.5 0 0 0 890 418.1'/%3E%3C/svg%3E");
+  --court-tint: #eaf2e3;
+  --court-line: #2f7d3a;
+}
+
+body[data-sport="tennis"] {
+  --court: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 946 442' fill='none' stroke='black' stroke-width='5'%3E%3Crect x='5' y='5' width='936' height='432'/%3E%3Cpath d='M5 59H941M5 383H941M221 59V383M725 59V383M221 221H725M5 221H17M929 221H941'/%3E%3Cpath d='M473 0V442' stroke-width='9'/%3E%3C/svg%3E");
+  --court-tint: #e4eef4;
+  --court-line: #1f6f78;
+}
+
+body[data-sport="volleyball"] {
+  --court: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 910 520' fill='none' stroke='black' stroke-width='5'%3E%3Crect x='5' y='35' width='900' height='450'/%3E%3Cpath d='M305 35V485M605 35V485'/%3E%3Cpath d='M455 12V508' stroke-width='10'/%3E%3Ccircle cx='455' cy='12' r='8'/%3E%3Ccircle cx='455' cy='508' r='8'/%3E%3C/svg%3E");
+  --court-tint: #f3e9d2;
+  --court-line: #9a6b2f;
+}
+
+body[data-sport="pickleball"] {
+  --court: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 890 410' fill='none' stroke='black' stroke-width='5'%3E%3Crect x='5' y='5' width='880' height='400'/%3E%3Cpath d='M305 5V405M585 5V405M5 205H305M585 205H885'/%3E%3Cpath d='M445 0V410' stroke-width='8'/%3E%3C/svg%3E");
+  --court-tint: #ddf1ec;
+  --court-line: #0f766e;
+}
+
+@media (prefers-color-scheme: dark) {
+  body[data-sport="basketball"] {
+    --court-tint: #1b140f;
+  }
+
+  body[data-sport="soccer"] {
+    --court-tint: #0f1a12;
+    --court-line: #6fcf7f;
+  }
+
+  body[data-sport="tennis"] {
+    --court-tint: #0e171b;
+    --court-line: #6cc5cf;
+  }
+
+  body[data-sport="volleyball"] {
+    --court-tint: #1a1610;
+    --court-line: #e0b878;
+  }
+
+  body[data-sport="pickleball"] {
+    --court-tint: #0d1a18;
+    --court-line: #5eead4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
   }
 }

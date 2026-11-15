@@ -1,6 +1,7 @@
 import "./GameInsights.css";
 import { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
+import useBodySport from "../useBodySport.js";
 
 const PLURAL = {
   Sun: "Sundays",
@@ -27,6 +28,7 @@ function GameInsights() {
     errors: [],
   });
   const canvasRef = useRef(null);
+  useBodySport(sport);
 
   const query = sport ? `?${new URLSearchParams({ sport })}` : "";
 

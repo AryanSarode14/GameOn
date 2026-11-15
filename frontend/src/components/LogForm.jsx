@@ -2,6 +2,7 @@ import "./LogForm.css";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { SPORTS, RESULTS } from "../logOptions.js";
+import useBodySport from "../useBodySport.js";
 
 const pad = (n) => String(n).padStart(2, "0");
 const toLocal = (d) =>
@@ -39,6 +40,7 @@ function LogForm() {
   const status = !id ? "ready" : loaded.key === id ? loaded.status : "loading";
   const form = draft.key === key ? draft.form : empty;
   const list = errors.key === key ? errors.list : [];
+  useBodySport(status === "ready" ? form.sport : "");
 
   useEffect(() => {
     if (errors.key === key && errors.list.length) alertRef.current.focus();
