@@ -5,14 +5,15 @@
   padding: 1rem 1.25rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
 }
 
 .game-form-card fieldset {
   margin: 0.5rem 0 0;
   padding: 0.5rem 1rem 0.75rem;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-input);
 }
 
 .game-form-card legend {

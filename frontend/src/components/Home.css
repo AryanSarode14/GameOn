@@ -1,4 +1,23 @@
+.home h1 {
+  margin: 0.5rem 0 1rem;
+  font-size: clamp(3.5rem, 20vw, 8rem);
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+  color: var(--text);
+}
+
+.home h1::after {
+  content: "";
+  display: block;
+  width: 2.5em;
+  height: max(0.4rem, 0.08em);
+  margin-top: 0.15em;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+}
+
 .home-lead {
+  max-width: 36rem;
   font-size: 1.125rem;
   color: var(--muted);
 }
@@ -12,7 +31,8 @@
   padding: 1rem 1.25rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
 }
 
 .home-card h3 {

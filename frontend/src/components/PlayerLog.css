@@ -14,7 +14,7 @@
 
 .player-log .player-log-add {
   padding: 0.5rem 1rem;
-  border-radius: 6px;
+  border-radius: var(--radius-pill);
   background: var(--accent);
   color: var(--accent-text);
   text-decoration: none;

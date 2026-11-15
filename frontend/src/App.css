@@ -1,27 +1,35 @@
 :root {
-  --bg: #f7f7f5;
+  --bg: #f6ebdd;
   --surface: #ffffff;
-  --text: #1c1c1e;
-  --muted: #5c5c66;
-  --border: #d4d4d8;
-  --accent: #1d5fd1;
+  --text: #1e1b18;
+  --muted: #5f5248;
+  --border: #e2cdb5;
+  --accent: #c2410c;
   --accent-text: #ffffff;
-  --error-bg: #fdecec;
-  --error-text: #9b1c1c;
+  --link: #9a3412;
+  --error-bg: #ffe4e6;
+  --error-text: #9f1239;
+  --radius-card: 16px;
+  --radius-input: 10px;
+  --radius-pill: 999px;
+  --shadow: 0 1px 2px rgba(30, 27, 24, 0.06), 0 4px 14px rgba(30, 27, 24, 0.08);
+  --font-display: "Oswald", "Arial Narrow", sans-serif;
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #141416;
-    --surface: #1f1f23;
-    --text: #ececef;
-    --muted: #a1a1aa;
-    --border: #3f3f46;
-    --accent: #6ea0ff;
-    --accent-text: #0b1530;
-    --error-bg: #3a1717;
-    --error-text: #ffb4b4;
+    --bg: #15110e;
+    --surface: #221b16;
+    --text: #f5ede4;
+    --muted: #bfae9e;
+    --border: #3a2e25;
+    --accent: #f97316;
+    --accent-text: #1a120c;
+    --link: #f97316;
+    --error-bg: #3b1219;
+    --error-text: #fda4af;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.35);
   }
 }
 
@@ -42,11 +50,28 @@ body {
 main {
   max-width: 960px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1.25rem;
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(2rem, 7vw, 3rem);
+}
+
+h2 {
+  font-size: 1.5rem;
 }
 
 a {
-  color: var(--accent);
+  color: var(--link);
 }
 
 button,
@@ -57,11 +82,12 @@ textarea {
 }
 
 button {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.25rem;
   border: 1px solid var(--accent);
-  border-radius: 6px;
+  border-radius: var(--radius-pill);
   background: var(--accent);
   color: var(--accent-text);
+  font-weight: 600;
   cursor: pointer;
 }
 
@@ -74,9 +100,9 @@ input,
 select,
 textarea {
   width: 100%;
-  padding: 0.5rem;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--muted);
+  border-radius: var(--radius-input);
   background: var(--surface);
   color: var(--text);
 }
@@ -88,13 +114,13 @@ textarea {
 
 .alert {
   padding: 0.75rem 1rem;
-  border-radius: 6px;
+  border-radius: var(--radius-input);
   background: var(--error-bg);
   color: var(--error-text);
 }
 
 @media (min-width: 640px) {
   main {
-    padding: 2rem;
+    padding: 2.5rem;
   }
 }
