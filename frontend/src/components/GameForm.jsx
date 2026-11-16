@@ -147,6 +147,11 @@ function GameForm() {
   return (
     <div className="game-form">
       <h1>{id ? "Edit game" : "Post a game"}</h1>
+      <p>
+        {id
+          ? "Update your game's details."
+          : "Post a pickup game so other players can find and join it."}
+      </p>
       <form className="game-form-card" onSubmit={submit}>
         <label htmlFor="gf-sport">Sport</label>
         <select

@@ -4,7 +4,7 @@ import { SKILLS, COURTS } from "../db/gameOptions.js";
 
 const COUNT = 1200;
 const DEMO1_GAMES = 20;
-const DAYS = 56;
+const DAYS = 180;
 const WEIGHTS = {
   "Carter Playground": 15,
   "Joe Moakley Park": 15,

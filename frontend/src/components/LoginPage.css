@@ -21,6 +21,12 @@
   gap: 0.5rem;
 }
 
+.login-card .login-hint {
+  margin: -0.25rem 0 0.25rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
 .login-card button {
   align-self: flex-start;
   margin-top: 0.5rem;

@@ -102,16 +102,24 @@ function LoginPage() {
               id="register-username"
               name="username"
               autoComplete="username"
+              aria-describedby="register-username-hint"
               required
             />
+            <p id="register-username-hint" className="login-hint">
+              3–20 letters, numbers or _ (underscore)
+            </p>
             <label htmlFor="register-password">Password</label>
             <input
               id="register-password"
               name="password"
               type="password"
               autoComplete="new-password"
+              aria-describedby="register-password-hint"
               required
             />
+            <p id="register-password-hint" className="login-hint">
+              6–72 characters
+            </p>
             <button type="submit" disabled={busy}>
               Create account
             </button>

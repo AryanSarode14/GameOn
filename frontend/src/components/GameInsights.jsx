@@ -119,6 +119,7 @@ function GameInsights() {
   return (
     <div className="game-insights">
       <h1>Popular Times</h1>
+      <p>See which courts and times are busiest for each sport.</p>
 
       {sports && (
         <form

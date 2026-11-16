@@ -1,3 +1,7 @@
+.game-form h1 {
+  margin-bottom: 0.25rem;
+}
+
 .game-form-card {
   display: flex;
   flex-direction: column;

@@ -1,3 +1,7 @@
+.game-insights h1 {
+  margin-bottom: 0.25rem;
+}
+
 .game-insights-filter {
   display: flex;
   flex-direction: column;
