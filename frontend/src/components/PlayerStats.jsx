@@ -138,6 +138,7 @@ function PlayerStats() {
   return (
     <div className="player-stats">
       <h1>My Stats</h1>
+      <p>See how your games, hours and win rate change month to month.</p>
       {status === "loading" && <p role="status">Loading…</p>}
       {status === "failed" && (
         <p className="alert" role="alert">

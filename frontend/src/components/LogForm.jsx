@@ -123,6 +123,7 @@ function LogForm() {
   return (
     <div className="log-form">
       <h1>{id ? "Edit log entry" : "Log a game"}</h1>
+      <p>Record a game you played. Only you can see your entries.</p>
       <form className="log-form-card" onSubmit={submit}>
         <label htmlFor="lf-sport">Sport</label>
         <select
