@@ -8,13 +8,13 @@ GameOn helps Boston players find pickup basketball, soccer, tennis, volleyball a
 
 ## Links
 
-|                 |                                                                                                        |
-| --------------- | ------------------------------------------------------------------------------------------------------ |
-| Live site       | https://gameon-2ucs.onrender.com                                                                       |
-| Design document | [docs/design-document.pdf](docs/design-document.pdf)                                                   |
-| Demo video      | TODO: add YouTube link                                                                                 |
-| Slides          | TODO: add slides link                                                                                  |
-| Class           | [CS5610 Web Development](TODO-add-class-link), Northeastern University, Prof. John Alexis Guerra Gomez |
+|                 |                                                                                                                                                   |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Live site       | https://gameon-2ucs.onrender.com                                                                                                                  |
+| Design document | [docs/design-document.pdf](docs/design-document.pdf)                                                                                              |
+| Demo video      | TODO: add YouTube link                                                                                                                            |
+| Slides          | [Google Slides](https://docs.google.com/presentation/d/1aBiUPgfA5-VDxHJTkpT-aQJwcgvXqwraVT5oYH9HuUY/edit?usp=sharing)                             |     |
+| Class           | [CS5610 Web Development](https://johnguerra.co/classes/webDevelopment_online_fall_2026/), Northeastern University, Prof. John Alexis Guerra Gomez |
 
 ## Authors
 
