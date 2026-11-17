@@ -8,13 +8,13 @@ GameOn helps Boston players find pickup basketball, soccer, tennis, volleyball a
 
 ## Links
 
-| | |
-| --- | --- |
-| Live site | https://gameon-2ucs.onrender.com |
-| Design document | [docs/design-document.pdf](docs/design-document.pdf) |
-| Demo video | TODO: add YouTube link |
-| Slides | TODO: add slides link |
-| Class | [CS5610 Web Development](TODO-add-class-link), Northeastern University, Prof. John Alexis Guerra Gomez |
+|                 |                                                                                                        |
+| --------------- | ------------------------------------------------------------------------------------------------------ |
+| Live site       | https://gameon-2ucs.onrender.com                                                                       |
+| Design document | [docs/design-document.pdf](docs/design-document.pdf)                                                   |
+| Demo video      | TODO: add YouTube link                                                                                 |
+| Slides          | TODO: add slides link                                                                                  |
+| Class           | [CS5610 Web Development](TODO-add-class-link), Northeastern University, Prof. John Alexis Guerra Gomez |
 
 ## Authors
 
@@ -33,24 +33,24 @@ Each feature has its own MongoDB collection seeded with 1,200 synthetic records.
 
 ## Demo login
 
-| Username | Password |
-| --- | --- |
-| `demo1` | `gameon123` |
+| Username | Password    |
+| -------- | ----------- |
+| `demo1`  | `gameon123` |
 
 `demo1` hosts about 20 games and has about 300 Player Log entries, so every page has data. `demo2` to `demo20` use the same password.
 
 ## Features
 
-| Page | Route | Login | What it does |
-| --- | --- | --- | --- |
-| Home | `/` | No | Explains each page and gives the demo login |
-| Log in / Register | `/login` | No | Log in or create an account |
-| Game Board | `/games` | No | Browse upcoming games, filter by sport, neighborhood, skill level and date, 20 per page |
-| Post / Edit a game | `/games/new`, `/games/:id/edit` | Yes | Create a game; only its host can edit or delete it |
-| Popular Times | `/games/insights` | No | Busiest courts and time slots per sport, with a chart of games by hour |
-| Player Log | `/log` | Yes | Your private game history, filter by sport, result and date range, 20 per page |
-| Log / Edit an entry | `/log/new`, `/log/:id/edit` | Yes | Record sport, date, location, duration, result, rating and notes |
-| My Stats | `/log/stats` | Yes | Games per sport, win rate, hours played and a monthly trend chart |
+| Page                | Route                           | Login | What it does                                                                            |
+| ------------------- | ------------------------------- | ----- | --------------------------------------------------------------------------------------- |
+| Home                | `/`                             | No    | Explains each page and gives the demo login                                             |
+| Log in / Register   | `/login`                        | No    | Log in or create an account                                                             |
+| Game Board          | `/games`                        | No    | Browse upcoming games, filter by sport, neighborhood, skill level and date, 20 per page |
+| Post / Edit a game  | `/games/new`, `/games/:id/edit` | Yes   | Create a game; only its host can edit or delete it                                      |
+| Popular Times       | `/games/insights`               | No    | Busiest courts and time slots per sport, with a chart of games by hour                  |
+| Player Log          | `/log`                          | Yes   | Your private game history, filter by sport, result and date range, 20 per page          |
+| Log / Edit an entry | `/log/new`, `/log/:id/edit`     | Yes   | Record sport, date, location, duration, result, rating and notes                        |
+| My Stats            | `/log/stats`                    | Yes   | Games per sport, win rate, hours played and a monthly trend chart                       |
 
 ## Tech stack
 
@@ -130,38 +130,38 @@ Express serves the built React app from `frontend/dist` on port 3000 (or `PORT`)
 
 ### Scripts
 
-| Where | Script | Does |
-| --- | --- | --- |
-| Root | `npm run dev` | Start Express with nodemon |
-| Root | `npm start` | Start Express |
-| Root | `npm run seed` | Seed users, then games, then player logs |
-| Root | `npm run build` | Install and build the frontend |
-| Root | `npm run lint` | ESLint on the backend |
-| Root | `npm run format` | Prettier on the whole repo |
-| `frontend/` | `npm run dev` | Vite dev server |
-| `frontend/` | `npm run lint` | ESLint on the frontend |
+| Where       | Script           | Does                                     |
+| ----------- | ---------------- | ---------------------------------------- |
+| Root        | `npm run dev`    | Start Express with nodemon               |
+| Root        | `npm start`      | Start Express                            |
+| Root        | `npm run seed`   | Seed users, then games, then player logs |
+| Root        | `npm run build`  | Install and build the frontend           |
+| Root        | `npm run lint`   | ESLint on the backend                    |
+| Root        | `npm run format` | Prettier on the whole repo               |
+| `frontend/` | `npm run dev`    | Vite dev server                          |
+| `frontend/` | `npm run lint`   | ESLint on the frontend                   |
 
 ## API
 
-| Method | Route | Login | Does |
-| --- | --- | --- | --- |
-| POST | `/api/auth/register` | No | Create an account and log in |
-| POST | `/api/auth/login` | No | Log in |
-| POST | `/api/auth/logout` | No | Log out |
-| GET | `/api/auth/me` | No | Current user or `null` |
-| GET | `/api/games` | No | Upcoming games with filters and pagination |
-| GET | `/api/games/options` | No | Sports, skill levels and courts |
-| GET | `/api/games/insights` | No | Popular courts and time slots |
-| GET | `/api/games/:id` | No | One game |
-| POST | `/api/games` | Yes | Create a game |
-| PUT | `/api/games/:id` | Host | Update a game |
-| DELETE | `/api/games/:id` | Host | Delete a game |
-| GET | `/api/playerLogs` | Yes | Your entries with filters and pagination |
-| GET | `/api/playerLogs/stats` | Yes | Your stats aggregation |
-| GET | `/api/playerLogs/:id` | Yes | One of your entries |
-| POST | `/api/playerLogs` | Yes | Create an entry |
-| PUT | `/api/playerLogs/:id` | Yes | Update your entry |
-| DELETE | `/api/playerLogs/:id` | Yes | Delete your entry |
+| Method | Route                   | Login | Does                                       |
+| ------ | ----------------------- | ----- | ------------------------------------------ |
+| POST   | `/api/auth/register`    | No    | Create an account and log in               |
+| POST   | `/api/auth/login`       | No    | Log in                                     |
+| POST   | `/api/auth/logout`      | No    | Log out                                    |
+| GET    | `/api/auth/me`          | No    | Current user or `null`                     |
+| GET    | `/api/games`            | No    | Upcoming games with filters and pagination |
+| GET    | `/api/games/options`    | No    | Sports, skill levels and courts            |
+| GET    | `/api/games/insights`   | No    | Popular courts and time slots              |
+| GET    | `/api/games/:id`        | No    | One game                                   |
+| POST   | `/api/games`            | Yes   | Create a game                              |
+| PUT    | `/api/games/:id`        | Host  | Update a game                              |
+| DELETE | `/api/games/:id`        | Host  | Delete a game                              |
+| GET    | `/api/playerLogs`       | Yes   | Your entries with filters and pagination   |
+| GET    | `/api/playerLogs/stats` | Yes   | Your stats aggregation                     |
+| GET    | `/api/playerLogs/:id`   | Yes   | One of your entries                        |
+| POST   | `/api/playerLogs`       | Yes   | Create an entry                            |
+| PUT    | `/api/playerLogs/:id`   | Yes   | Update your entry                          |
+| DELETE | `/api/playerLogs/:id`   | Yes   | Delete your entry                          |
 
 ## Project structure
 
@@ -181,8 +181,6 @@ GameOn/
 ```
 
 ## AI disclosure
-
-
 
 ## License
 
