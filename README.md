@@ -12,7 +12,7 @@ GameOn helps Boston players find pickup basketball, soccer, tennis, volleyball a
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Live site       | https://gameon-2ucs.onrender.com                                                                                                                  |
 | Design document | [docs/design-document.pdf](docs/design-document.pdf)                                                                                              |
-| Demo video      | TODO: add YouTube link                                                                                                                            |
+| Demo video      | [Watch on YouTube](https://www.youtube.com/watch?v=dkBTqAJpv5Y)                                                                                   |
 | Slides          | [Google Slides](https://docs.google.com/presentation/d/1aBiUPgfA5-VDxHJTkpT-aQJwcgvXqwraVT5oYH9HuUY/edit?usp=sharing)                             |     |
 | Class           | [CS5610 Web Development](https://johnguerra.co/classes/webDevelopment_online_fall_2026/), Northeastern University, Prof. John Alexis Guerra Gomez |
 
@@ -182,7 +182,7 @@ GameOn/
 
 ## AI disclosure
 
-We used claude to generate the README.md file. Claude code was used to go through our project and skeleton and then write the README file. We also used AI to plan the design doc and to structure the skeleton properly. 
+We used claude to generate the README.md file. Claude code was used to go through our project and skeleton and then write the README file. We also used AI to plan the design doc and to structure the skeleton properly.
 
 ## License
 
