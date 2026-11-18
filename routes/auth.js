@@ -20,6 +20,7 @@ router.post("/register", async (req, res, next) => {
   )
     errors.push("Password must be 6 to 72 characters");
   if (errors.length) return res.status(400).json({ errors });
+  // Good job with the username normalization for lookup! In usersDB.js I didn't see normalization but I see you handle it here in routes.
   const name = username.toLowerCase();
   if (await findUserByUsername(name)) return taken(res);
   let u;
