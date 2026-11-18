@@ -65,6 +65,7 @@ function PlayerStats() {
 
   useEffect(() => {
     if (!data?.totals.games) return;
+    // You may want to take a look at this because if data.byMonth is empty, it could create errors on lines 157 and 196. You could try checking the length of the array before reading it.
     const months = data.byMonth;
     const yr = spansYears(months);
     const text = cssVar("--text");
@@ -166,6 +167,7 @@ function PlayerStats() {
 
           <section aria-labelledby="ps-sports">
             <h2 id="ps-sports">Games per sport</h2>
+            <!-- This aria label is redundant but probably won't cause any issues. You may want to remove it -->
             <table className="player-stats-table" aria-labelledby="ps-sports">
               <thead>
                 <tr>

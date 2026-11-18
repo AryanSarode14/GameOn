@@ -2,6 +2,8 @@ import "dotenv/config";
 import { MongoClient } from "mongodb";
 import { SKILLS, COURTS } from "../db/gameOptions.js";
 
+// I like how you used these seed scripts to populate the database. This seems like a good practice that I may adopt.
+
 const COUNT = 1200;
 const DEMO1_GAMES = 20;
 const DAYS = 180;
