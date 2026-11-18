@@ -48,6 +48,7 @@ function LoginPage() {
         [form]: ["Couldn't reach the server. Try again."],
       }));
     } finally {
+      // This is a good way to clean up with setBusy since it will run regardless of success or failure
       setBusy(false);
     }
   }
