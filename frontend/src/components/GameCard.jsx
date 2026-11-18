@@ -41,6 +41,7 @@ function GameCard({ game, isHost, onDelete }) {
     } catch {
       setError("Couldn't reach the server. Try again.");
     }
+    // This will never run if res.ok returns true. You may want to consider putting it in a finally block so that it runs either way.
     setBusy(false);
   }
 
