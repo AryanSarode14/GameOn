@@ -182,6 +182,8 @@ GameOn/
 
 ## AI disclosure
 
+We used claude to generate the README.md file. Claude code was used to go through our project and skeleton and then write the README file. We also used AI to plan the design doc and to structure the skeleton properly. 
+
 ## License
 
 [MIT](LICENSE)
