@@ -167,6 +167,7 @@ function PlayerStats() {
 
           <section aria-labelledby="ps-sports">
             <h2 id="ps-sports">Games per sport</h2>
+            <!-- This aria label is redundant but probably won't cause any issues. You may want to remove it -->
             <table className="player-stats-table" aria-labelledby="ps-sports">
               <thead>
                 <tr>
