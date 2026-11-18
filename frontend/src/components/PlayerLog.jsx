@@ -7,6 +7,7 @@ import Pagination from "./Pagination.jsx";
 import useBodySport from "../useBodySport.js";
 
 const noFilters = { sport: "", result: "", from: "", to: "" };
+// You may want to validate these before changing them to ISOStrings because they could throw an error if not properly formatted. You may be checking this elsewhere, and if so this is optional.
 const dayStart = (d) => new Date(`${d}T00:00`).toISOString();
 const dayEnd = (d) => new Date(`${d}T23:59:59.999`).toISOString();
 
