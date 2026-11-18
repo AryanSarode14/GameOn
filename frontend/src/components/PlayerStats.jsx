@@ -65,6 +65,7 @@ function PlayerStats() {
 
   useEffect(() => {
     if (!data?.totals.games) return;
+    // You may want to take a look at this because if data.byMonth is empty, it could create errors on lines 157 and 196. You could try checking the length of the array before reading it.
     const months = data.byMonth;
     const yr = spansYears(months);
     const text = cssVar("--text");
