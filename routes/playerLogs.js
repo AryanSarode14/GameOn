@@ -14,14 +14,35 @@ const sports = ["basketball", "soccer", "tennis", "volleyball", "pickleball"];
 const results = ["win", "loss", "draw"];
 const isStr = (v) => typeof v === "string";
 const isInt = (v, lo, hi) => Number.isInteger(v) && v >= lo && v <= hi;
+const realDay = (s) => {
+  const t = Date.parse(`${s}T00:00:00Z`);
+  return !isNaN(t) && new Date(t).toISOString().slice(0, 10) === s;
+};
 const iso = (v) =>
-  isStr(v) && !isNaN(Date.parse(v)) && new Date(v).toISOString() === v;
+  isStr(v) &&
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d{1,3})?)?(Z|[+-]\d{2}:\d{2})$/.test(
+    v,
+  ) &&
+  realDay(v.slice(0, 10)) &&
+  !isNaN(Date.parse(v));
 const len = (v, lo, hi) =>
   isStr(v) && v.trim().length >= lo && v.trim().length <= hi;
 const notFound = (res) => res.status(404).json({ error: "Not found" });
 const r1 = (x) => Math.round(x * 10) / 10;
 const pct = (w, g) => (g ? Math.round((w / g) * 100) : 0);
 const zero = { games: 0, wins: 0, losses: 0, draws: 0, minutes: 0 };
+const nextMonth = (m) => {
+  const [y, mo] = m.split("-").map(Number);
+  return mo === 12 ? `${y + 1}-01` : `${y}-${String(mo + 1).padStart(2, "0")}`;
+};
+const fillMonths = (rows) => {
+  if (!rows.length) return rows;
+  const byId = new Map(rows.map((r) => [r._id, r]));
+  const out = [];
+  for (let m = rows[0]._id; m <= rows.at(-1)._id; m = nextMonth(m))
+    out.push(byId.get(m) ?? { _id: m, ...zero });
+  return out;
+};
 
 const rules = {
   sport: [
@@ -109,12 +130,12 @@ router.get("/stats", async (req, res) => {
       avgRating: r1(t.avgRating ?? 0),
       winRate: pct(t.wins, t.games),
     },
-    byMonth: byMonth.map((m) => ({
+    byMonth: fillMonths(byMonth).map((m) => ({
       month: m._id,
       games: m.games,
       hours: r1(m.minutes / 60),
-      avgRating: r1(m.avgRating ?? 0),
-      winRate: pct(m.wins, m.games),
+      avgRating: m.games ? r1(m.avgRating) : null,
+      winRate: m.games ? pct(m.wins, m.games) : null,
     })),
   });
 });
